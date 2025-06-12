@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Catalogo Giochi - Game Life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts e Bootstrap -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(rgba(0,0,0,0.95), rgba(0,0,0,0.95)), url('https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/items/730/f7b2b8a3d30f8e5c2cc99b78dfcf1587f347fb8b.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.95);
+      border-bottom: 2px solid #00ffc3;
+    }
+
+    .navbar-brand {
+      font-family: 'Press Start 2P', cursive;
+      color: #00ffc3 !important;
+      font-size: 1.4rem;
+      text-decoration: none;
+    }
+
+    .home-btn {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff !important;
+      background-color: #00ffc3;
+      padding: 6px 12px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    .home-btn:hover {
+      background-color: #00bfa6;
+      color: #000 !important;
+    }
+
+    .cart-icon {
+      cursor: pointer;
+      color: #00ffc3;
+      font-size: 1.8rem;
+      transition: transform 0.3s ease-in-out, color 0.3s;
+    }
+    .cart-icon:hover {
+      transform: rotate(-10deg) scale(1.2);
+      color: #00bfa6;
+    }
+
+    .container {
+      padding-top: 4rem;
+    }
+
+    .card {
+      background-color: rgba(10, 10, 10, 0.9);
+      border: 1px solid #00ffc3;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 195, 0.3);
+      color: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 255, 195, 0.6);
+    }
+
+    .card-title {
+      color: #00ffc3;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      text-shadow: 0 0 5px #00ffc3;
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+    }
+
+    .prezzo {
+      color: #00ffc3;
+      font-weight: bold;
+    }
+
+    .recensione-item {
+      background-color: #111;
+      border-left: 3px solid #00ffc3;
+      padding: 8px 12px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .recensione-item strong {
+      color: #00ffc3;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #cartSidebar {
+      position: fixed;
+      top: 0;
+      right: -320px;
+      width: 320px;
+      height: 100%;
+      background: linear-gradient(to bottom, #111, #000);
+      color: white;
+      box-shadow: -4px 0 20px rgba(0, 255, 195, 0.6);
+      transition: right 0.4s ease;
+      padding: 1.2rem;
+      overflow-y: auto;
+      z-index: 1050;
+      border-left: 2px solid #00ffc3;
+      border-radius: 10px 0 0 10px;
+    }
+
+    #cartSidebar.active {
+      right: 0;
+    }
+
+    #cartSidebar h5 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      color: #00ffc3;
+    }
+
+    #cartSidebar button.btn-success {
+      background-color: #00ffc3;
+      border: none;
+      font-weight: bold;
+      color: #000;
+    }
+    #cartSidebar button.btn-success:hover {
+      background-color: #00bfa6;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">🎮 GAME LIFE</a>
+    <div class="ms-auto d-flex gap-3 align-items-center">
+      <a class="home-btn" href="/">🏠 Home</a>
+      <span class="cart-icon" onclick="toggleCart()">🛍️</span>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for gioco in giochi %}
+    <div class="col">
+      <div class="card h-100 p-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ gioco.titolo }}</h5>
+          <p class="card-text">{{ gioco.descrizione }}</p>
+          <p class="card-text"><strong>Genere:</strong> {{ gioco.genere }}</p>
+          <p class="card-text"><strong>Data di uscita:</strong> {{ gioco.data_uscita }}</p>
+          <p class="card-text"><strong>Prezzo:</strong> <span class="prezzo">€{{ gioco.prezzo }}</span></p>
+          <button class="btn btn-outline-info mt-2" onclick="addToCart('{{ gioco.titolo }}', '{{ gioco.prezzo }}')">➕ Aggiungi al carrello</button>
+          <hr>
+          <h6>Recensione:</h6>
+          {% with recensione=gioco.recensioni.all.0 %}
+          {% if recensione %}
+          <div class="recensione-item">
+            <strong>@{{ recensione.cliente.nome }}</strong>: {{ recensione.contenuto }}<br>
+            ⭐ <strong>{{ recensione.voto }}/10</strong>
+          </div>
+          {% else %}
+          <div class="recensione-item">Nessuna recensione disponibile.</div>
+          {% endif %}
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Sidebar carrello -->
+<div id="cartSidebar">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="m-0">🛍️ Il tuo carrello</h5>
+    <button class="btn btn-sm btn-outline-light" onclick="toggleCart()">Chiudi ✖</button>
+  </div>
+  <ul id="cartList" class="list-unstyled"></ul>
+  <p><strong>Totale:</strong> €<span id="totalPrice">0.00</span></p>
+  <button class="btn btn-success w-100 mt-2" onclick="checkout()">Acquista</button>
+</div>
+
+<script>
+  let cartItems = [];
+
+  function toggleCart() {
+    document.getElementById('cartSidebar').classList.toggle('active');
+  }
+
+  function addToCart(titolo, prezzo) {
+    cartItems.push({ titolo, prezzo: parseFloat(prezzo) });
+    renderCart();
+  }
+
+  function renderCart() {
+  const cartList = document.getElementById('cartList');
+  cartList.innerHTML = '';
+  let total = 0;
+  cartItems.forEach((item, index) => {
+    const li = document.createElement('li');
+    li.innerHTML = `${item.titolo} - €${item.prezzo.toFixed(2)}`;
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = '❌';
+    removeBtn.className = 'btn btn-sm btn-outline-danger ms-2';
+    removeBtn.onclick = () => {
+      cartItems.splice(index, 1);
+      renderCart();
+    };
+    li.appendChild(removeBtn);
+    cartList.appendChild(li);
+    total += item.prezzo;
+  });
+  document.getElementById('totalPrice').textContent = total.toFixed(2);
+}
+
+
+  function checkout() {
+    if (cartItems.length === 0) {
+      alert('Il carrello è vuoto!');
+    } else {
+      alert('Acquisto effettuato con successo!');
+      cartItems = [];
+      renderCart();
+      toggleCart();
+    }
+  }
+</script>
+
+</body>
+</html>

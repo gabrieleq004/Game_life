@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Life - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background-color: #111;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background-color: #000;
+      border-bottom: 2px solid #00ffc3;
+      padding: 1rem;
+    }
+
+    .navbar-brand {
+      font-family: 'Press Start 2P', cursive;
+      color: #00ffc3 !important;
+      font-size: 1.5rem;
+    }
+
+    .main-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .news-panel, .hero-box, .extra-panel {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #00ffc3;
+      flex: 1;
+      min-width: 280px;
+      max-width: 32%;
+    }
+
+    .news-panel h4, .extra-panel h4 {
+      color: #00ffc3;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #00ffc3;
+      padding-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .news-panel ul, .extra-panel ul {
+      list-style: none;
+      padding-left: 0;
+      font-size: 0.9rem;
+    }
+
+    .news-panel li, .extra-panel li {
+      margin-bottom: 0.75rem;
+      color: #eee;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .news-panel li::before, .extra-panel li::before {
+      content: '🕹️';
+      position: absolute;
+      left: 0;
+    }
+
+    .hero-box {
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      color: #00ffc3;
+      font-family: 'Press Start 2P', cursive;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-text {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 1.8rem;
+    }
+
+    .btn-custom {
+      background-color: #00ffc3;
+      color: #000;
+      padding: 0.7rem 1.5rem;
+      margin: 0.5rem;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: all 0.3s ease-in-out;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 0 10px #00ffc3;
+    }
+
+    .btn-custom:hover {
+      background-color: #00bfa6;
+      transform: scale(1.08);
+    }
+
+    .features {
+      margin: 4rem auto 2rem auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+    }
+
+    .feature-card {
+      background-color: rgba(0,0,0,0.7);
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px #00ffc3;
+    }
+
+    .feature-card h5 {
+      color: #00ffc3;
+      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">🎮 GAME LIFE</a>
+    </div>
+  </nav>
+
+  <div class="main-content">
+    <div class="news-panel">
+      <h4>📰 Ultime News</h4>
+      <ul>
+        <li>Nuovo trailer di GTA VI rilasciato!</li>
+        <li>Xbox annuncia evento live il 10 giugno</li>
+        <li>Final Fantasy XVI riceve aggiornamento</li>
+        <li>Steam Summer Sale in arrivo a luglio</li>
+      </ul>
+    </div>
+
+    <div class="hero-box">
+      <h1 class="hero-title">Benvenuto su Game Life</h1>
+      <p class="hero-text">Scopri un universo dedicato a gamer, retro lovers, e appassionati di cultura pop. Vivi l'esperienza definitiva.</p>
+      <a href="{% url 'login' %}" class="btn-custom">Accedi</a>
+      <a href="{% url 'register' %}" class="btn-custom">Registrati</a>
+    </div>
+
+    <div class="extra-panel">
+      <h4>⚙️ Funzionalità Utili</h4>
+      <ul>
+        <li>Consulta la tua libreria giochi</li>
+        <li>Gestisci il profilo e le preferenze</li>
+        <li>Segui gli sviluppatori preferiti</li>
+        <li>Ricevi consigli personalizzati</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature-card">
+      <h5>🎲 Catalogo Interattivo</h5>
+      <p>Filtra e scopri i giochi perfetti per te. Genere, prezzo, novità: tutto a portata di click.</p>
+    </div>
+    <div class="feature-card">
+      <h5>📈 Classifiche</h5>
+      <p>Consulta le classifiche dei giochi più giocati, recensiti e desiderati dagli utenti.</p>
+    </div>
+    <div class="feature-card">
+      <h5>🧑‍🤝‍🧑 Community</h5>
+      <p>Entra nel forum, partecipa a sondaggi, segui eventi e sfide della nostra community.</p>
+    </div>
+    <div class="feature-card">
+      <h5>📅 Eventi</h5>
+      <p>Calendario aggiornato con fiere, release e promozioni dal mondo gaming.</p>
+    </div>
+  </div>
+</body>
+</html>
